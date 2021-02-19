@@ -1,17 +1,17 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-    kotlin("jvm") version "1.3.72"
+    kotlin("jvm") version "1.4.21"
     jacoco
     `maven-publish`
 }
 
 java {
-    sourceCompatibility = JavaVersion.VERSION_13
-    targetCompatibility = JavaVersion.VERSION_13
+    sourceCompatibility = JavaVersion.VERSION_15
+    targetCompatibility = JavaVersion.VERSION_15
 }
 
-val moduleName = "com.github.asyncmc.template.internal"
+val moduleName = "com.github.asyncmc.protocol.provider.raknet.asyncmc"
 val isSnapshot = version.toString().endsWith("SNAPSHOT")
 
 repositories {
@@ -27,7 +27,7 @@ tasks.withType<JavaCompile>().configureEach {
 }
 
 tasks.withType<KotlinCompile>().configureEach {
-    kotlinOptions.jvmTarget = "13"
+    kotlinOptions.jvmTarget = "15"
     kotlinOptions.freeCompilerArgs += "-Xopt-in=kotlin.RequiresOptIn"
 }
 
@@ -57,6 +57,8 @@ plugins.withType<JavaPlugin>().configureEach {
 dependencies {
     api(kotlin("stdlib-jdk8", embeddedKotlinVersion))
     api(kotlin("reflect", embeddedKotlinVersion))
+    api("com.github.asyncmc:raknet-api:0.1.0-SNAPSHOT")
+    implementation("com.github.asyncmc:raknet-protocol:0.1.0-SNAPSHOT")
 
     testImplementation(kotlin("test-junit5", embeddedKotlinVersion))
 
